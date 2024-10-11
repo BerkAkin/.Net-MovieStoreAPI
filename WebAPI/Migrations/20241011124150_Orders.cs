@@ -1,31 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAPI.Migrations
 {
-    public partial class CustomerGenre : Migration
+    public partial class Orders : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                    name: "CustomerGenres",
+                    name: "Orders",
                     columns: table => new
                     {
+                        Id = table.Column<int>(nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                         CustomerId = table.Column<int>(nullable: false),
-                        GenreId = table.Column<int>(nullable: false)
+                        MovieId = table.Column<int>(nullable: false),
+                        Price = table.Column<decimal>(nullable: false),
+                        PurchaseDate = table.Column<DateTime>(nullable: false)
                     },
                     constraints: table =>
                     {
-                        table.PrimaryKey("PK_CustomerGenres", x => new { x.CustomerId, x.GenreId });
+                        table.PrimaryKey("PK_Orders", x => x.Id);
                         table.ForeignKey(
-                            name: "FK_CustomerGenres_Customers_CustomerId",
+                            name: "FK_Order_Customers_CustomerId",
                             column: x => x.CustomerId,
                             principalTable: "Customers",
                             principalColumn: "Id",
                             onDelete: ReferentialAction.Cascade);
                         table.ForeignKey(
-                            name: "FK_CustomerGenres_Genres_GenreId",
-                            column: x => x.GenreId,
-                            principalTable: "Genres",
+                            name: "FK_Order_Movies_FilmId",
+                            column: x => x.MovieId,
+                            principalTable: "Movies",
                             principalColumn: "Id",
                             onDelete: ReferentialAction.Cascade);
                     });
@@ -34,7 +38,7 @@ namespace WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerGenres");
+                name: "Orders");
         }
     }
 }

@@ -6,12 +6,35 @@ namespace WebAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.CreateTable(
+                    name: "MovieActors",
+                    columns: table => new
+                    {
+                        MovieId = table.Column<int>(nullable: false),
+                        ActorId = table.Column<int>(nullable: false)
+                    },
+                    constraints: table =>
+                    {
+                        table.PrimaryKey("PK_MovieActors", x => new { x.MovieId, x.ActorId });
+                        table.ForeignKey(
+                            name: "FK_MovieActors_Movies_MovieId",
+                            column: x => x.MovieId,
+                            principalTable: "Movies",
+                            principalColumn: "Id",
+                            onDelete: ReferentialAction.Cascade);
+                        table.ForeignKey(
+                            name: "FK_MovieActors_Actors_ActorId",
+                            column: x => x.ActorId,
+                            principalTable: "Actors",
+                            principalColumn: "Id",
+                            onDelete: ReferentialAction.Cascade);
+                    });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.DropTable(
+                name: "MovieActors");
         }
     }
 }
