@@ -14,7 +14,7 @@ namespace WebAPI.Migrations
                        Id = table.Column<int>(nullable: false).Annotation("SqlServer:Identity", "1, 1"), // Otomatik artan anahtar
                        Name = table.Column<string>(nullable: false, maxLength: 50),
                        Year = table.Column<DateTime>(nullable: false),
-                       Price = table.Column<int>(nullable: false)
+                       Price = table.Column<decimal>(nullable: false)
                    },
                    constraints: table =>
                    {
