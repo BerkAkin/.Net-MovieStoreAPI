@@ -66,3 +66,6 @@ C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\obj\Debug\net5.0\refint\WebAPI.
 C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\obj\Debug\net5.0\WebAPI.pdb
 C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\obj\Debug\net5.0\WebAPI.genruntimeconfig.cache
 C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\obj\Debug\net5.0\ref\WebAPI.dll
+C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\berka\Desktop\.Net-MovieStoreAPI\WebAPI\bin\Debug\net5.0\FluentValidation.dll
