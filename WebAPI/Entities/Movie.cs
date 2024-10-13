@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +12,7 @@ namespace WebAPI.Entites
         public decimal Price { get; set; }
         public DateTime Year { get; set; }
         public ICollection<Genre> Genres { get; set; }
+        public ICollection<Actor> Actors { get; set; }
 
 
     }
