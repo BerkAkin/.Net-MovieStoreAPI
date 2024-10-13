@@ -22,7 +22,7 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovies
         }
         public List<GetMoviesViewModel> Handle()
         {
-            var movies = _context.Movies.Include(m => m.Genres).ToList();
+            var movies = _context.Movies.Include(m => m.Genres).Include(a => a.Actors).ToList();
             List<GetMoviesViewModel> movieListModel = _mapper.Map<List<GetMoviesViewModel>>(movies);
             return movieListModel;
         }
@@ -33,8 +33,8 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovies
         public string Title { get; set; }
         public decimal Price { get; set; }
         public DateTime Year { get; set; }
-
         public List<string> Genres { get; set; }
+        public List<string> Actors { get; set; }
 
     }
 }
