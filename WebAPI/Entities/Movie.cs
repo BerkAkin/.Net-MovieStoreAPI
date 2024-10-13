@@ -14,6 +14,9 @@ namespace WebAPI.Entites
         public ICollection<Genre> Genres { get; set; }
         public ICollection<Actor> Actors { get; set; }
 
+        public int ProducerId { get; set; }
+        public Producer Producer { get; set; }
+
 
     }
 }
