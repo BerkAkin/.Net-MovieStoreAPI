@@ -35,6 +35,20 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Producers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Producers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Movies",
                 columns: table => new
                 {
@@ -42,11 +56,18 @@ namespace WebAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Year = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Year = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProducerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Producers_ProducerId",
+                        column: x => x.ProducerId,
+                        principalTable: "Producers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +127,11 @@ namespace WebAPI.Migrations
                 name: "IX_GenreMovie_MoviesId",
                 table: "GenreMovie",
                 column: "MoviesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_ProducerId",
+                table: "Movies",
+                column: "ProducerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -124,6 +150,9 @@ namespace WebAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Producers");
         }
     }
 }
