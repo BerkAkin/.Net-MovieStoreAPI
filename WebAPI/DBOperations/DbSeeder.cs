@@ -31,6 +31,10 @@ namespace WebAPI.DBOperations
                 context.Actors.AddRange(hugh, jfer);
                 context.SaveChanges();
 
+                Producer tar = new Producer() { Name = "Quentin", Surname = "Tarantino" };
+                Producer james = new Producer() { Name = "James", Surname = "Cameron" };
+                context.Producers.AddRange(tar, james);
+
 
                 context.Movies.AddRange(
                     new Movie
@@ -39,7 +43,8 @@ namespace WebAPI.DBOperations
                         Price = 123,
                         Year = DateTime.Now,
                         Genres = new List<Genre> { actionGenre, comedyGenre },
-                        Actors = new List<Actor> { hugh }
+                        Actors = new List<Actor> { hugh },
+                        Producer = tar
                     },
                     new Movie
                     {
@@ -47,7 +52,9 @@ namespace WebAPI.DBOperations
                         Price = 123,
                         Year = DateTime.Now,
                         Genres = new List<Genre> { horrorGenre, romanticGenre },
-                        Actors = new List<Actor> { jfer }
+                        Actors = new List<Actor> { jfer },
+                        Producer = james
+
                     }
                 );
 
