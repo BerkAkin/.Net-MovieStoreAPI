@@ -17,9 +17,15 @@ namespace WebAPI.DBOperations
                 .HasMany(m => m.Genres)
                 .WithMany(g => g.Movies);
 
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Actors)
+                .WithMany(a => a.Movies);
+
         }
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Actor> Actors { get; set; }
     }
 }
