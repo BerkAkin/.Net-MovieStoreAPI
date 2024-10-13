@@ -12,10 +12,13 @@ namespace WebAPI.Common
         public MappingProfile()
         {
             CreateMap<Movie, GetMoviesViewModel>()
-            .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()));
+            .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
+            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()));
 
             CreateMap<Movie, GetMovieDetailViewModel>()
-            .ForMember(dest => dest.GenreList, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()));
+            .ForMember(dest => dest.GenreList, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
+            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()));
+
 
             CreateMap<CreateMovieViewModel, Movie>().ForMember(dest => dest.Genres, opt => opt.Ignore());
             CreateMap<string, Genre>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src));
