@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Application.MovieOperations.Commands.CreateMovie;
 using WebAPI.Application.MovieOperations.Queries.GetMovieDetail;
 using WebAPI.Application.MovieOperations.Queries.GetMovies;
 using WebAPI.DBOperations;
@@ -37,6 +38,16 @@ namespace WebAPI.Controllers
             query.MovieId = id;
             var result = query.Handle();
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        public IActionResult AddMovie([FromBody] CreateMovieViewModel movie)
+        {
+            CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);
+            command.Model = movie;
+            command.Handle();
+            return Ok("Film Ekleme Başarılı !");
         }
 
     }
