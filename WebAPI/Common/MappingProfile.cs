@@ -13,11 +13,14 @@ namespace WebAPI.Common
         {
             CreateMap<Movie, GetMoviesViewModel>()
             .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
-            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()));
+            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()))
+            .ForMember(dest => dest.Producer, opt => opt.MapFrom(src => src.Producer.Name + " " + src.Producer.Surname));
 
             CreateMap<Movie, GetMovieDetailViewModel>()
             .ForMember(dest => dest.GenreList, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
-            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()));
+            .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()))
+            .ForMember(dest => dest.Producer, opt => opt.MapFrom(src => src.Producer.Name + " " + src.Producer.Surname));
+
 
 
             CreateMap<CreateMovieViewModel, Movie>().ForMember(dest => dest.Genres, opt => opt.Ignore());
