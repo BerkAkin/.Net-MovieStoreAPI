@@ -20,7 +20,7 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovieDetail
 
         public GetMovieDetailViewModel Handle()
         {
-            var movie = _context.Movies.Include(m => m.Genres).Where(x => x.Id == MovieId).SingleOrDefault();
+            var movie = _context.Movies.Include(m => m.Genres).Include(a => a.Actors).Where(x => x.Id == MovieId).SingleOrDefault();
             GetMovieDetailViewModel vm = _mapper.Map<GetMovieDetailViewModel>(movie);
             return vm;
         }
@@ -32,5 +32,6 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovieDetail
         public int Price { get; set; }
         public DateTime Year { get; set; }
         public List<string> GenreList { get; set; }
+        public List<string> Actors { get; set; }
     }
 }
