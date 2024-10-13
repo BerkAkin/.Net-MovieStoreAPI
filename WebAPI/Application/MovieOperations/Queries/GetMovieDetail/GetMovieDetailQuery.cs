@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.DBOperations;
+using WebAPI.Entites;
 
 namespace WebAPI.Application.MovieOperations.Queries.GetMovieDetail
 {
@@ -20,7 +21,7 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovieDetail
 
         public GetMovieDetailViewModel Handle()
         {
-            var movie = _context.Movies.Include(m => m.Genres).Include(a => a.Actors).Where(x => x.Id == MovieId).SingleOrDefault();
+            var movie = _context.Movies.Include(m => m.Genres).Include(a => a.Actors).Include(p => p.Producer).Where(x => x.Id == MovieId).SingleOrDefault();
             GetMovieDetailViewModel vm = _mapper.Map<GetMovieDetailViewModel>(movie);
             return vm;
         }
@@ -33,5 +34,7 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovieDetail
         public DateTime Year { get; set; }
         public List<string> GenreList { get; set; }
         public List<string> Actors { get; set; }
+        public Producer Producer { get; set; }
+
     }
 }
