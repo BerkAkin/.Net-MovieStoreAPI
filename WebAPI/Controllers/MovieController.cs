@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.MovieOperations.Commands.CreateMovie;
+using WebAPI.Application.MovieOperations.Commands.DeleteMovie;
 using WebAPI.Application.MovieOperations.Queries.GetMovieDetail;
 using WebAPI.Application.MovieOperations.Queries.GetMovies;
 using WebAPI.DBOperations;
@@ -48,6 +49,15 @@ namespace WebAPI.Controllers
             command.Model = movie;
             command.Handle();
             return Ok("Film Ekleme Başarılı !");
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteMovie(int id)
+        {
+            DeleteMovieCommand command = new DeleteMovieCommand(_context, _mapper);
+            command.Id = id;
+            command.Handle();
+            return Ok("Silme Başarılı");
         }
 
     }
