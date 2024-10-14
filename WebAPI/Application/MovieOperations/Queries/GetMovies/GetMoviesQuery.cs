@@ -33,9 +33,10 @@ namespace WebAPI.Application.MovieOperations.Queries.GetMovies
         public string Title { get; set; }
         public decimal Price { get; set; }
         public DateTime Year { get; set; }
+        public string Producer { get; set; }
         public List<string> Genres { get; set; }
         public List<string> Actors { get; set; }
-        public string Producer { get; set; }
+
 
     }
 }
