@@ -13,7 +13,7 @@ namespace WebAPI.Entites
         public DateTime Year { get; set; }
         public ICollection<Genre> Genres { get; set; }
         public ICollection<Actor> Actors { get; set; }
-
+        public ICollection<Customer> Customers { get; set; }
         public int ProducerId { get; set; }
         public Producer Producer { get; set; }
 
