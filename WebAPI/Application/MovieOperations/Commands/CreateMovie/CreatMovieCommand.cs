@@ -33,7 +33,7 @@ namespace WebAPI.Application.MovieOperations.Commands.CreateMovie
 
             movie = _mapper.Map<Movie>(Model);
 
-            var genres = _context.Genres.Where(g => Model.Genres.Contains(g.Name)).ToList();
+            var genres = _context.Genres.Where(g => Model.Genres.Contains(g.Id)).ToList();
 
 
             var producer = _context.Producers.Where(p => p.Id == Model.ProducerId).SingleOrDefault();
@@ -60,7 +60,7 @@ namespace WebAPI.Application.MovieOperations.Commands.CreateMovie
         public string Title { get; set; }
         public decimal Price { get; set; }
         public DateTime Year { get; set; }
-        public List<string> Genres { get; set; }
+        public List<int> Genres { get; set; }
         public int ProducerId { get; set; }
 
     }
