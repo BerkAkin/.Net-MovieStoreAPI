@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Application.GenreOperations.Commands.CreateGenre;
 using WebAPI.Application.GenreOperations.Queries.GetGenreDetail;
 using WebAPI.Application.GenreOperations.Queries.GetGenres;
 using WebAPI.DBOperations;
@@ -36,6 +37,15 @@ namespace WebAPI.Controllers
             query.GenreId = id;
             var result = query.Handle();
             return Ok(result);
+        }
+
+        [HttpPost]
+        public IActionResult CreateGenre([FromBody] CreateGenreViewModel model)
+        {
+            CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
+            command.Model = model;
+            command.Handle();
+            return Ok("Genre oluşturma başarılı");
         }
 
     }
