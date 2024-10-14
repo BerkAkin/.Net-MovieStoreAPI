@@ -1,6 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.GenreOperations.Commands.CreateGenre;
+using WebAPI.Application.GenreOperations.Commands.DeleteGenre;
+using WebAPI.Application.GenreOperations.Commands.UpdateGenre;
 using WebAPI.Application.GenreOperations.Queries.GetGenreDetail;
 using WebAPI.Application.GenreOperations.Queries.GetGenres;
 using WebAPI.DBOperations;
@@ -46,6 +48,25 @@ namespace WebAPI.Controllers
             command.Model = model;
             command.Handle();
             return Ok("Genre oluşturma başarılı");
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteGenre(int id)
+        {
+            DeleteGenreCommand command = new DeleteGenreCommand(_context, _mapper);
+            command.GenreId = id;
+            command.Handle();
+            return Ok("Silme başarılı");
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateGenre(int id, UpdateGenreViewModel model)
+        {
+            UpdateGenreCommand command = new UpdateGenreCommand(_context, _mapper);
+            command.Model = model;
+            command.GenreId = id;
+            command.Handle();
+            return Ok("Güncelleme Başarılı");
         }
 
     }
