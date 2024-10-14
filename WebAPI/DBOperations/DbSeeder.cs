@@ -36,28 +36,68 @@ namespace WebAPI.DBOperations
                 context.Producers.AddRange(tar, james);
 
 
-                context.Movies.AddRange(
-                    new Movie
-                    {
-                        Title = "Action Comedy Movie",
-                        Price = 123,
-                        Year = DateTime.Now,
-                        Genres = new List<Genre> { actionGenre, comedyGenre },
-                        Actors = new List<Actor> { hugh },
-                        Producer = tar
-                    },
-                    new Movie
-                    {
-                        Title = "Horror Romantic Movie",
-                        Price = 123,
-                        Year = DateTime.Now,
-                        Genres = new List<Genre> { horrorGenre, romanticGenre },
-                        Actors = new List<Actor> { jfer },
-                        Producer = james
+                Movie ACMovie = new Movie()
+                {
+                    Title = "Action Comedy Movie",
+                    Price = 123,
+                    Year = DateTime.Now,
+                    Genres = new List<Genre> { actionGenre, comedyGenre },
+                    Actors = new List<Actor> { hugh },
+                    Producer = tar
+                };
 
-                    }
-                );
+                Movie HRMovie = new Movie()
+                {
+                    Title = "Horror Romantic Movie",
+                    Price = 123,
+                    Year = DateTime.Now,
+                    Genres = new List<Genre> { horrorGenre, romanticGenre },
+                    Actors = new List<Actor> { jfer },
+                    Producer = james
 
+                };
+                context.Movies.AddRange(ACMovie, HRMovie);
+                context.SaveChanges();
+
+
+
+                Customer cs1 = new Customer()
+                {
+                    Name = "Berk",
+                    Surname = "Akın",
+                    PurchasedMovies = new List<Movie> { HRMovie, ACMovie },
+                    FavoriteGenres = new List<Genre> { horrorGenre, romanticGenre }
+                };
+
+                Customer cs2 = new Customer()
+                {
+                    Name = "Cemre",
+                    Surname = "Süheyla",
+                    PurchasedMovies = new List<Movie> { ACMovie },
+                    FavoriteGenres = new List<Genre> { horrorGenre }
+                };
+                context.Customers.AddRange(cs1, cs2);
+                context.SaveChanges();
+
+
+
+                Order order1 = new Order()
+                {
+                    Customer = cs1,
+                    Movie = HRMovie,
+                    PurchaseDate = DateTime.Now,
+                    Price = 124,
+                };
+
+                Order order2 = new Order()
+                {
+                    Customer = cs2,
+                    Movie = ACMovie,
+                    PurchaseDate = DateTime.Now,
+                    Price = 1224,
+                };
+
+                context.Orders.AddRange(order1, order2);
                 context.SaveChanges();
             }
         }
