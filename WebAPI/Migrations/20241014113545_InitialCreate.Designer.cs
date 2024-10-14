@@ -10,7 +10,7 @@ using WebAPI.DBOperations;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(MovieStoreDbContext))]
-    [Migration("20241013205821_InitialCreate")]
+    [Migration("20241014113545_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,36 @@ namespace WebAPI.Migrations
                     b.HasIndex("MoviesId");
 
                     b.ToTable("ActorMovie");
+                });
+
+            modelBuilder.Entity("CustomerGenre", b =>
+                {
+                    b.Property<int>("CustomersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FavoriteGenresId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomersId", "FavoriteGenresId");
+
+                    b.HasIndex("FavoriteGenresId");
+
+                    b.ToTable("CustomerFavoriteGenres");
+                });
+
+            modelBuilder.Entity("CustomerMovie", b =>
+                {
+                    b.Property<int>("CustomersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchasedMoviesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomersId", "PurchasedMoviesId");
+
+                    b.HasIndex("PurchasedMoviesId");
+
+                    b.ToTable("CustomerMovies");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
@@ -67,6 +97,24 @@ namespace WebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
+                });
+
+            modelBuilder.Entity("WebAPI.Entites.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("WebAPI.Entites.Genre", b =>
@@ -110,6 +158,34 @@ namespace WebAPI.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("WebAPI.Entites.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("WebAPI.Entites.Producer", b =>
                 {
                     b.Property<int>("Id")
@@ -143,6 +219,36 @@ namespace WebAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CustomerGenre", b =>
+                {
+                    b.HasOne("WebAPI.Entites.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Entites.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteGenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CustomerMovie", b =>
+                {
+                    b.HasOne("WebAPI.Entites.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Entites.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("PurchasedMoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GenreMovie", b =>
                 {
                     b.HasOne("WebAPI.Entites.Genre", null)
@@ -167,6 +273,30 @@ namespace WebAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Producer");
+                });
+
+            modelBuilder.Entity("WebAPI.Entites.Order", b =>
+                {
+                    b.HasOne("WebAPI.Entites.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Entites.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("WebAPI.Entites.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("WebAPI.Entites.Producer", b =>

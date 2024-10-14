@@ -22,6 +22,20 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Genres",
                 columns: table => new
                 {
@@ -46,6 +60,30 @@ namespace WebAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Producers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerFavoriteGenres",
+                columns: table => new
+                {
+                    CustomersId = table.Column<int>(type: "int", nullable: false),
+                    FavoriteGenresId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerFavoriteGenres", x => new { x.CustomersId, x.FavoriteGenresId });
+                    table.ForeignKey(
+                        name: "FK_CustomerFavoriteGenres_Customers_CustomersId",
+                        column: x => x.CustomersId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerFavoriteGenres_Genres_FavoriteGenresId",
+                        column: x => x.FavoriteGenresId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +133,30 @@ namespace WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CustomerMovies",
+                columns: table => new
+                {
+                    CustomersId = table.Column<int>(type: "int", nullable: false),
+                    PurchasedMoviesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerMovies", x => new { x.CustomersId, x.PurchasedMoviesId });
+                    table.ForeignKey(
+                        name: "FK_CustomerMovies_Customers_CustomersId",
+                        column: x => x.CustomersId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerMovies_Movies_PurchasedMoviesId",
+                        column: x => x.PurchasedMoviesId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GenreMovie",
                 columns: table => new
                 {
@@ -118,10 +180,48 @@ namespace WebAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ActorMovie_MoviesId",
                 table: "ActorMovie",
                 column: "MoviesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerFavoriteGenres_FavoriteGenresId",
+                table: "CustomerFavoriteGenres",
+                column: "FavoriteGenresId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerMovies_PurchasedMoviesId",
+                table: "CustomerMovies",
+                column: "PurchasedMoviesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GenreMovie_MoviesId",
@@ -132,6 +232,16 @@ namespace WebAPI.Migrations
                 name: "IX_Movies_ProducerId",
                 table: "Movies",
                 column: "ProducerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerId",
+                table: "Orders",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_MovieId",
+                table: "Orders",
+                column: "MovieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -140,13 +250,25 @@ namespace WebAPI.Migrations
                 name: "ActorMovie");
 
             migrationBuilder.DropTable(
+                name: "CustomerFavoriteGenres");
+
+            migrationBuilder.DropTable(
+                name: "CustomerMovies");
+
+            migrationBuilder.DropTable(
                 name: "GenreMovie");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Actors");
 
             migrationBuilder.DropTable(
                 name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Movies");
