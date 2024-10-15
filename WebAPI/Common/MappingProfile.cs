@@ -1,5 +1,7 @@
 using System.Linq;
 using AutoMapper;
+using WebAPI.Application.ActorOperations.Queries.GetActorDetail;
+using WebAPI.Application.ActorOperations.Queries.GetActors;
 using WebAPI.Application.GenreOperations.Commands.CreateGenre;
 using WebAPI.Application.GenreOperations.Queries.GetGenreDetail;
 using WebAPI.Application.GenreOperations.Queries.GetGenres;
@@ -41,6 +43,13 @@ namespace WebAPI.Common
             .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.Movies.Select(m => m.Title).ToList()));
 
             CreateMap<CreateGenreViewModel, Genre>();
+
+            //ACTOR MAPPING SETTINGS
+            CreateMap<Actor, GetActorsViewModel>()
+            .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.Movies.Select(m => m.Title).ToList()));
+
+            CreateMap<Actor, GetActorDetailViewModel>()
+            .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.Movies.Select(m => m.Title).ToList()));
 
         }
     }
