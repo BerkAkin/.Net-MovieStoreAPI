@@ -31,27 +31,15 @@ namespace WebAPI.Application.MovieOperations.Commands.UpdateMovie
                 movie.Title = Model.Title != default ? Model.Title : movie.Title;
                 movie.Price = Model.Price != default ? Model.Price : movie.Price;
                 movie.Year = Model.Year != default ? Model.Year : movie.Year;
+                movie.ProducerId = Model.ProducerId != default ? Model.ProducerId : movie.ProducerId;
+
+                var genres = _context.Genres.Where(g => Model.Genres.Contains(g.Id)).ToList();
+                movie.Genres = Model.Genres != default ? genres : movie.Genres;
+
+                var actors = _context.Actors.Where(a => Model.Actors.Contains(a.Id)).ToList();
+                movie.Actors = Model.Actors != default ? actors : movie.Actors;
 
 
-                if (Model.Genres != null && Model.Genres.Count > 0)
-                {
-                    movie.Genres.Clear();
-                    foreach (var genreName in Model.Genres)
-                    {
-                        var genre = _context.Genres.SingleOrDefault(g => g.Name.ToLower() == genreName.ToLower());
-                        if (genre is null)
-                        {
-                            throw new InvalidOperationException("Genre'yı Listedekilerden seçin");
-                        }
-                        else
-                        {
-                            movie.Genres.Add(genre);
-                        }
-
-
-
-                    }
-                }
                 _context.SaveChanges();
             }
         }
@@ -61,6 +49,8 @@ namespace WebAPI.Application.MovieOperations.Commands.UpdateMovie
         public string Title { get; set; }
         public decimal Price { get; set; }
         public DateTime Year { get; set; }
-        public List<string> Genres { get; set; }
+        public List<int> Genres { get; set; }
+        public List<int> Actors { get; set; }
+        public int ProducerId { get; set; }
     }
 }
