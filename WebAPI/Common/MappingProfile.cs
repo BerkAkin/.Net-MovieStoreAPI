@@ -1,8 +1,11 @@
 using System.Linq;
 using AutoMapper;
+using WebAPI.Application.ActorOperations.Commands.CreateActor;
+using WebAPI.Application.ActorOperations.Commands.UpdateActor;
 using WebAPI.Application.ActorOperations.Queries.GetActorDetail;
 using WebAPI.Application.ActorOperations.Queries.GetActors;
 using WebAPI.Application.GenreOperations.Commands.CreateGenre;
+using WebAPI.Application.GenreOperations.Commands.UpdateGenre;
 using WebAPI.Application.GenreOperations.Queries.GetGenreDetail;
 using WebAPI.Application.GenreOperations.Queries.GetGenres;
 using WebAPI.Application.MovieOperations.Commands.CreateMovie;
@@ -28,11 +31,16 @@ namespace WebAPI.Common
             .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.Actors.Select(g => g.Name + " " + g.Surname).ToList()))
             .ForMember(dest => dest.Producer, opt => opt.MapFrom(src => src.Producer.Name + " " + src.Producer.Surname));
 
-            CreateMap<CreateMovieViewModel, Movie>().ForMember(dest => dest.Genres, opt => opt.Ignore())
-            .ForMember(dest => dest.Producer, opt => opt.Ignore()).ForMember(dest => dest.ProducerId, opt => opt.Ignore());
-            ;
+            CreateMap<CreateMovieViewModel, Movie>()
+            .ForMember(dest => dest.Genres, opt => opt.Ignore())
+            .ForMember(dest => dest.Producer, opt => opt.Ignore())
+            .ForMember(dest => dest.ProducerId, opt => opt.Ignore())
+            .ForMember(dest => dest.Actors, opt => opt.Ignore());
 
             CreateMap<string, Genre>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src));
+
+
+
 
 
             //GENRE MAPPING SETTINGS
@@ -43,6 +51,11 @@ namespace WebAPI.Common
             .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.Movies.Select(m => m.Title).ToList()));
 
             CreateMap<CreateGenreViewModel, Genre>();
+            CreateMap<UpdateGenreViewModel, Genre>();
+
+
+
+
 
             //ACTOR MAPPING SETTINGS
             CreateMap<Actor, GetActorsViewModel>()
@@ -50,6 +63,9 @@ namespace WebAPI.Common
 
             CreateMap<Actor, GetActorDetailViewModel>()
             .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.Movies.Select(m => m.Title).ToList()));
+
+            CreateMap<CreateActorViewModel, Actor>().ForMember(dest => dest.Movies, opt => opt.Ignore());
+            CreateMap<UpdateActorViewModel, Actor>();
 
         }
     }
