@@ -26,6 +26,14 @@ namespace WebAPI.Application.ActorOperations.Commands.DeleteActor
             else
             {
                 _context.Actors.Remove(actor);
+
+                var producer = _context.Producers.SingleOrDefault(a => a.Name.ToLower() == actor.Name.ToLower() && a.Surname.ToLower() == actor.Surname.ToLower());
+                if (producer is not null)
+                {
+                    producer.IsActor = false;
+                }
+
+
                 _context.SaveChanges();
             }
         }
