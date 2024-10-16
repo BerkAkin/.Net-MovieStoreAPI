@@ -5,11 +5,6 @@ using WebAPI.Application.ActorOperations.Commands.DeleteActor;
 using WebAPI.Application.ActorOperations.Commands.UpdateActor;
 using WebAPI.Application.ActorOperations.Queries.GetActorDetail;
 using WebAPI.Application.ActorOperations.Queries.GetActors;
-using WebAPI.Application.MovieOperations.Commands.CreateMovie;
-using WebAPI.Application.MovieOperations.Commands.DeleteMovie;
-using WebAPI.Application.MovieOperations.Commands.UpdateMovie;
-using WebAPI.Application.MovieOperations.Queries.GetMovieDetail;
-using WebAPI.Application.MovieOperations.Queries.GetMovies;
 using WebAPI.DBOperations;
 
 namespace WebAPI.Controllers
