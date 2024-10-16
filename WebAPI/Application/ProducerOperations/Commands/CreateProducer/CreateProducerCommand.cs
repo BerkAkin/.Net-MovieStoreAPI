@@ -4,7 +4,7 @@ using AutoMapper;
 using WebAPI.DBOperations;
 using WebAPI.Entites;
 
-namespace WebAPI.Application.ProdcuerOperations.Commands.CreateProducer
+namespace WebAPI.Application.ProducerOperations.Commands.CreateProducer
 {
     public class CreateProducerCommand
     {
