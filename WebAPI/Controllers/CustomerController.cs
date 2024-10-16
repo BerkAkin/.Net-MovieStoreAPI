@@ -1,8 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using WebAPI.Application.CustomerOperations.Commands.AddFavoriteGenre;
 using WebAPI.Application.CustomerOperations.Commands.CreateCustomer;
 using WebAPI.Application.CustomerOperations.Commands.DeleteCustomer;
+using WebAPI.Application.CustomerOperations.Commands.DeleteFavoriteGenre;
 using WebAPI.Application.CustomerOperations.Commands.UpdateCustomer;
 using WebAPI.Application.CustomerOperations.Queries.GetCustomerDetail;
 using WebAPI.Application.CustomerOperations.Queries.GetCustomers;
@@ -71,6 +73,25 @@ namespace WebAPI.Controllers
             return Ok("Güncelleme başarılı");
         }
 
+        [HttpPut("{id}/favoriteGenres")]
+        public IActionResult AddFavoriteGenreToCustomer(int id, [FromBody] AddFavoriteGenreViewModel model)
+        {
+            AddFavoriteGenreCommand command = new AddFavoriteGenreCommand(_context, _mapper);
+            command.CustomerId = id;
+            command.Model = model;
+            command.Handle();
+            return Ok("Ekleme başarılı");
+        }
+
+        [HttpDelete("{id}/favoriteGenres")]
+        public IActionResult DeleteFavoriteGenre(int id, [FromBody] DeleteFavoriteGenreViewModel model)
+        {
+            DeleteFavoriteGenreCommand command = new DeleteFavoriteGenreCommand(_context, _mapper);
+            command.CustomerId = id;
+            command.Model = model;
+            command.Handle();
+            return Ok("Silme başarılı");
+        }
 
 
     }
