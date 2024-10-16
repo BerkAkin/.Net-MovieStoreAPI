@@ -14,9 +14,9 @@ using WebAPI.Application.GenreOperations.Queries.GetGenres;
 using WebAPI.Application.MovieOperations.Commands.CreateMovie;
 using WebAPI.Application.MovieOperations.Queries.GetMovieDetail;
 using WebAPI.Application.MovieOperations.Queries.GetMovies;
-using WebAPI.Application.ProdcuerOperations.Commands.CreateProducer;
-using WebAPI.Application.ProdcuerOperations.Queries.GetProducerDetail;
-using WebAPI.Application.ProdcuerOperations.Queries.GetProducers;
+using WebAPI.Application.ProducerOperations.Commands.CreateProducer;
+using WebAPI.Application.ProducerOperations.Queries.GetProducerDetail;
+using WebAPI.Application.ProducerOperations.Queries.GetProducers;
 using WebAPI.Entites;
 
 namespace WebAPI.Common
@@ -105,6 +105,8 @@ namespace WebAPI.Common
             .ForMember(dest => dest.PurchasedMovies, opt => opt.Ignore())
             .ForMember(dest => dest.FavoriteGenres, opt => opt.Ignore())
             .ForMember(dest => dest.Orders, opt => opt.Ignore());
+
+
 
         }
     }
