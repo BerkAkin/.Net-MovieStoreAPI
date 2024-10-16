@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using WebAPI.DBOperations;
 
-namespace WebAPI.Application.ProdcuerOperations.Commands.DeleteProducer
+namespace WebAPI.Application.ProducerOperations.Commands.DeleteProducer
 {
     public class DeleteProducerCommand
     {
