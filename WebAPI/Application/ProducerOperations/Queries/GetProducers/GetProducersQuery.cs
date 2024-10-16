@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.DBOperations;
 using WebAPI.Entites;
 
-namespace WebAPI.Application.ProdcuerOperations.Queries.GetProducers
+namespace WebAPI.Application.ProducerOperations.Queries.GetProducers
 {
     public class GetProducersQuery
     {
