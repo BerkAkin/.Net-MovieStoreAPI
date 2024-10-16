@@ -10,6 +10,7 @@ namespace WebAPI.Entites
         public string Name { get; set; }
         public string Surname { get; set; }
         public ICollection<Movie> Movies { get; set; }
+        public bool IsProducer { get; set; }
 
     }
 }
