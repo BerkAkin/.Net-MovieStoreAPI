@@ -2,7 +2,7 @@ using System.Linq;
 using AutoMapper;
 using WebAPI.DBOperations;
 
-namespace WebAPI.Application.ProdcuerOperations.Commands.UpdateProducer
+namespace WebAPI.Application.ProducerOperations.Commands.UpdateProducer
 {
     public class UpdateProducerCommand
     {
