@@ -1,11 +1,11 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Application.ProdcuerOperations.Commands.CreateProducer;
-using WebAPI.Application.ProdcuerOperations.Commands.DeleteProducer;
-using WebAPI.Application.ProdcuerOperations.Commands.UpdateProducer;
-using WebAPI.Application.ProdcuerOperations.Queries.GetProducerDetail;
-using WebAPI.Application.ProdcuerOperations.Queries.GetProducers;
+using WebAPI.Application.ProducerOperations.Commands.CreateProducer;
+using WebAPI.Application.ProducerOperations.Commands.DeleteProducer;
+using WebAPI.Application.ProducerOperations.Commands.UpdateProducer;
+using WebAPI.Application.ProducerOperations.Queries.GetProducerDetail;
+using WebAPI.Application.ProducerOperations.Queries.GetProducers;
 using WebAPI.DBOperations;
 
 namespace WebAPI.Controllers
