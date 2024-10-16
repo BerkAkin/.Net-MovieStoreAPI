@@ -10,5 +10,6 @@ namespace WebAPI.Entites
         public string Name { get; set; }
         public string Surname { get; set; }
         public ICollection<Movie> Movies { get; set; }
+        public bool IsActor { get; set; }
     }
 }
