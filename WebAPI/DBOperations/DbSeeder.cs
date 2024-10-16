@@ -26,12 +26,12 @@ namespace WebAPI.DBOperations
                 context.SaveChanges();
 
 
-                Actor hugh = new Actor() { Name = "Hugh", Surname = "Jackman" };
+                Actor hugh = new Actor() { Name = "Hugh", Surname = "Jackman", IsProducer = true };
                 Actor jfer = new Actor() { Name = "Jennifer", Surname = "Lawrence" };
                 context.Actors.AddRange(hugh, jfer);
                 context.SaveChanges();
 
-                Producer tar = new Producer() { Name = "Quentin", Surname = "Tarantino" };
+                Producer tar = new Producer() { Name = "Quentin", Surname = "Tarantino", IsActor = true };
                 Producer james = new Producer() { Name = "James", Surname = "Cameron" };
                 context.Producers.AddRange(tar, james);
 
