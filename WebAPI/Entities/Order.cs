@@ -15,5 +15,7 @@ namespace WebAPI.Entites
 
         public int Price { get; set; }
         public DateTime PurchaseDate { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }
