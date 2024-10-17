@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
             return Ok("Güncelleme başarılı");
         }
 
-        [HttpPut("{id}/favoriteGenres")]
+        [HttpPut("{id}/FavoriteGenres")]
         public IActionResult AddFavoriteGenreToCustomer(int id, [FromBody] AddFavoriteGenreViewModel model)
         {
             AddFavoriteGenreCommand command = new AddFavoriteGenreCommand(_context, _mapper);
@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
             return Ok("Ekleme başarılı");
         }
 
-        [HttpDelete("{id}/favoriteGenres")]
+        [HttpDelete("{id}/FavoriteGenres")]
         public IActionResult DeleteFavoriteGenre(int id, [FromBody] DeleteFavoriteGenreViewModel model)
         {
             DeleteFavoriteGenreCommand command = new DeleteFavoriteGenreCommand(_context, _mapper);
