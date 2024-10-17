@@ -14,6 +14,10 @@ using WebAPI.Application.GenreOperations.Queries.GetGenres;
 using WebAPI.Application.MovieOperations.Commands.CreateMovie;
 using WebAPI.Application.MovieOperations.Queries.GetMovieDetail;
 using WebAPI.Application.MovieOperations.Queries.GetMovies;
+using WebAPI.Application.OrderOperations.Commands.CreateOrder;
+using WebAPI.Application.OrderOperations.Commands.UpdateOrder;
+using WebAPI.Application.OrderOperations.Queries.GetInactiveOrders;
+using WebAPI.Application.OrderOperations.Queries.GetOrders;
 using WebAPI.Application.ProducerOperations.Commands.CreateProducer;
 using WebAPI.Application.ProducerOperations.Queries.GetProducerDetail;
 using WebAPI.Application.ProducerOperations.Queries.GetProducers;
@@ -105,6 +109,40 @@ namespace WebAPI.Common
             .ForMember(dest => dest.PurchasedMovies, opt => opt.Ignore())
             .ForMember(dest => dest.FavoriteGenres, opt => opt.Ignore())
             .ForMember(dest => dest.Orders, opt => opt.Ignore());
+
+
+            //ORDER MAPPING SETTINGS
+            CreateMap<Order, GetOrdersViewModel>()
+            .ForPath(dest => dest.Movie.Id, opt => opt.MapFrom(src => src.Movie.Id))
+            .ForPath(dest => dest.Movie.Title, opt => opt.MapFrom(src => src.Movie.Title))
+            .ForPath(dest => dest.Customer.Id, opt => opt.MapFrom(src => src.Customer.Id))
+            .ForPath(dest => dest.Customer.Name, opt => opt.MapFrom(src => src.Customer.Name + " " + src.Customer.Surname))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate));
+
+            CreateMap<Order, GetInactiveOrdersViewModel>()
+            .ForPath(dest => dest.Movie.Id, opt => opt.MapFrom(src => src.Movie.Id))
+            .ForPath(dest => dest.Movie.Title, opt => opt.MapFrom(src => src.Movie.Title))
+            .ForPath(dest => dest.Customer.Id, opt => opt.MapFrom(src => src.Customer.Id))
+            .ForPath(dest => dest.Customer.Name, opt => opt.MapFrom(src => src.Customer.Name + " " + src.Customer.Surname))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate));
+
+
+
+            CreateMap<Order, GetOrderDetailViewModel>()
+           .ForPath(dest => dest.Movie.Id, opt => opt.MapFrom(src => src.Movie.Id))
+           .ForPath(dest => dest.Movie.Title, opt => opt.MapFrom(src => src.Movie.Title))
+           .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+           .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate));
+
+
+
+            CreateMap<CreateOrderViewModel, Order>()
+            .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
+            .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MovieId))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate));
 
 
 
