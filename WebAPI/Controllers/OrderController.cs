@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.OrderOperations.Commands.CreateOrder;
 using WebAPI.Application.OrderOperations.Commands.DeleteOrder;
@@ -10,6 +11,7 @@ using WebAPI.DBOperations;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]s")]
 
@@ -52,12 +54,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddMovie([FromBody] CreateOrderViewModel order)
+        public IActionResult AddOrder([FromBody] CreateOrderViewModel order)
         {
             CreateOrderCommand command = new CreateOrderCommand(_context, _mapper);
             command.Model = order;
             command.Handle();
-            return Ok("Sipariş Ekleme Başarılı !");
+            return Ok("Sipariş Oluşturma Başarılı !");
         }
 
 
