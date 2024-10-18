@@ -19,7 +19,7 @@ namespace WebAPI.Application.CustomerOperations.Commands.CreateCustomer
         }
         public void Handle()
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Name.ToLower() == Model.Name.ToLower() && c.Surname.ToLower() == Model.Surname.ToLower());
+            var customer = _context.Customers.SingleOrDefault(c => c.Email.ToLower() == Model.Email.ToLower());
             if (customer is not null)
             {
                 throw new InvalidOperationException("Eklemeye çalıştığınız müşteri zaten mevcut");
@@ -34,5 +34,7 @@ namespace WebAPI.Application.CustomerOperations.Commands.CreateCustomer
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }
