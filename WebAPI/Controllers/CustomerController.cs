@@ -1,6 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
+using WebApi.Application.UserOperations.Commands;
+using WebApi.Application.UserOperations.Commands.RefreshToken;
+using WebApi.TokenOperations.Models;
 using WebAPI.Application.CustomerOperations.Commands.AddFavoriteGenre;
 using WebAPI.Application.CustomerOperations.Commands.CreateCustomer;
 using WebAPI.Application.CustomerOperations.Commands.DeleteCustomer;
@@ -12,6 +15,7 @@ using WebAPI.DBOperations;
 
 namespace WebAPI.Controllers
 {
+
     [ApiController]
     [Route("[controller]s")]
 
@@ -20,11 +24,13 @@ namespace WebAPI.Controllers
     {
         private readonly MovieStoreDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public CustomerController(MovieStoreDbContext context, IMapper mapper)
+        public CustomerController(MovieStoreDbContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -91,6 +97,24 @@ namespace WebAPI.Controllers
             command.Model = model;
             command.Handle();
             return Ok("Silme başarılı");
+        }
+
+        [HttpPost("connect/token")]
+        public ActionResult<Token> CreateToken([FromBody] CreateTokenModel login)
+        {
+            CreateTokenCommand command = new CreateTokenCommand(_context, _mapper, _configuration);
+            command.Model = login;
+            var token = command.Handle();
+            return token;
+        }
+
+        [HttpGet("refreshToken")]
+        public ActionResult<Token> CreateRefreshToken([FromQuery] string token)
+        {
+            RefreshTokenCommand command = new RefreshTokenCommand(_context, _configuration);
+            command.RefreshToken = token;
+            var resultToken = command.Handle();
+            return resultToken;
         }
 
 
