@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.ActorOperations.Commands.CreateActor;
 using WebAPI.Application.ActorOperations.Commands.DeleteActor;
@@ -45,7 +46,9 @@ namespace WebAPI.Controllers
         public IActionResult CreateActor([FromBody] CreateActorViewModel model)
         {
             CreateActorCommand command = new CreateActorCommand(_context, _mapper);
+            CreateActorCommandValidator validator = new CreateActorCommandValidator();
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Aktör Oluşturma Başarılı");
         }
@@ -64,8 +67,10 @@ namespace WebAPI.Controllers
         public IActionResult UpdateActor(int id, UpdateActorViewModel model)
         {
             UpdateActorCommand command = new UpdateActorCommand(_context, _mapper);
+            UpdateActorCommandValidator validator = new UpdateActorCommandValidator();
             command.Model = model;
             command.ActorId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Güncelleme Başarılı");
         }

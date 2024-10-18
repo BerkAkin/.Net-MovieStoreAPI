@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.GenreOperations.Commands.CreateGenre;
 using WebAPI.Application.GenreOperations.Commands.DeleteGenre;
@@ -45,7 +46,9 @@ namespace WebAPI.Controllers
         public IActionResult CreateGenre([FromBody] CreateGenreViewModel model)
         {
             CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
+            CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Genre oluşturma başarılı");
         }
@@ -54,7 +57,9 @@ namespace WebAPI.Controllers
         public IActionResult DeleteGenre(int id)
         {
             DeleteGenreCommand command = new DeleteGenreCommand(_context, _mapper);
+            DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
             command.GenreId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Silme başarılı");
         }
@@ -63,8 +68,10 @@ namespace WebAPI.Controllers
         public IActionResult UpdateGenre(int id, UpdateGenreViewModel model)
         {
             UpdateGenreCommand command = new UpdateGenreCommand(_context, _mapper);
+            UpdateGenreCommandValidator validator = new UpdateGenreCommandValidator();
             command.Model = model;
             command.GenreId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Güncelleme Başarılı");
         }

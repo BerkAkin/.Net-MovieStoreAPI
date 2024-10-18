@@ -1,5 +1,6 @@
 using System.Linq;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.ProducerOperations.Commands.CreateProducer;
 using WebAPI.Application.ProducerOperations.Commands.DeleteProducer;
@@ -46,7 +47,9 @@ namespace WebAPI.Controllers
         public IActionResult CreateProducer([FromBody] CreateProducerViewModel model)
         {
             CreateProducerCommand command = new CreateProducerCommand(_context, _mapper);
+            CreateProducerCommandValidator validator = new CreateProducerCommandValidator();
             command.Model = model;
+            validator.Validate(command);
             command.Handle();
             return Ok("Yapımcı oluşturma başarılı");
         }
@@ -55,7 +58,9 @@ namespace WebAPI.Controllers
         public IActionResult DeleteProducer(int id)
         {
             DeleteProducerCommand command = new DeleteProducerCommand(_context, _mapper);
+            DeleteProducerCommandValidator validator = new DeleteProducerCommandValidator();
             command.Id = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Silme başarılı");
         }
@@ -64,8 +69,10 @@ namespace WebAPI.Controllers
         public IActionResult UpdateProducer(int id, UpdateProducerViewModel model)
         {
             UpdateProducerCommand command = new UpdateProducerCommand(_context, _mapper);
+            UpdateProducerCommandValidator validator = new UpdateProducerCommandValidator();
             command.Model = model;
             command.Id = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Güncelleme Başarılı");
         }

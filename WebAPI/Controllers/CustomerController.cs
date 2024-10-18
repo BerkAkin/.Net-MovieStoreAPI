@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebApi.Application.UserOperations.Commands;
@@ -55,7 +56,9 @@ namespace WebAPI.Controllers
         public IActionResult CreateCustomer([FromBody] CreateCustomerViewModel model)
         {
             CreateCustomerCommand command = new CreateCustomerCommand(_context, _mapper);
+            CreateCustomerCommandValidator validator = new CreateCustomerCommandValidator();
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Müşteri oluşturma başarılı");
         }
@@ -73,8 +76,10 @@ namespace WebAPI.Controllers
         public IActionResult UpdateCustomer(int id, [FromBody] UpdateCustomerViewModel model)
         {
             UpdateCustomerCommand command = new UpdateCustomerCommand(_context, _mapper);
+            UpdateCustomerCommandValidator validator = new UpdateCustomerCommandValidator();
             command.Id = id;
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Güncelleme başarılı");
         }
@@ -83,8 +88,10 @@ namespace WebAPI.Controllers
         public IActionResult AddFavoriteGenreToCustomer(int id, [FromBody] AddFavoriteGenreViewModel model)
         {
             AddFavoriteGenreCommand command = new AddFavoriteGenreCommand(_context, _mapper);
+            AddFavoriteGenreCommandValidator validator = new AddFavoriteGenreCommandValidator();
             command.CustomerId = id;
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Ekleme başarılı");
         }
@@ -93,8 +100,10 @@ namespace WebAPI.Controllers
         public IActionResult DeleteFavoriteGenre(int id, [FromBody] DeleteFavoriteGenreViewModel model)
         {
             DeleteFavoriteGenreCommand command = new DeleteFavoriteGenreCommand(_context, _mapper);
+            DeleteFavoriteGenreCommandValidator validator = new DeleteFavoriteGenreCommandValidator();
             command.CustomerId = id;
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Silme başarılı");
         }

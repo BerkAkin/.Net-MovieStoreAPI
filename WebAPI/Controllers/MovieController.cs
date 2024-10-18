@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.MovieOperations.Commands.CreateMovie;
 using WebAPI.Application.MovieOperations.Commands.DeleteMovie;
@@ -47,7 +48,9 @@ namespace WebAPI.Controllers
         public IActionResult AddMovie([FromBody] CreateMovieViewModel movie)
         {
             CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);
+            CreateMovieCommandValidator validator = new CreateMovieCommandValidator();
             command.Model = movie;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Film Ekleme Başarılı !");
         }
@@ -56,7 +59,9 @@ namespace WebAPI.Controllers
         public IActionResult DeleteMovie(int id)
         {
             DeleteMovieCommand command = new DeleteMovieCommand(_context, _mapper);
+            DeleteMovieCommandValidator validator = new DeleteMovieCommandValidator();
             command.Id = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Film Silme Başarılı");
         }
@@ -65,8 +70,10 @@ namespace WebAPI.Controllers
         public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieViewModel model)
         {
             UpdateMovieCommand command = new UpdateMovieCommand(_context, _mapper);
+            UpdateMovieCommandValidator validator = new UpdateMovieCommandValidator();
             command.Id = id;
             command.Model = model;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Film Güncelleme Başarılı");
         }

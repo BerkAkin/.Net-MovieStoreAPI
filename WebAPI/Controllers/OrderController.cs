@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.OrderOperations.Commands.CreateOrder;
@@ -57,7 +58,9 @@ namespace WebAPI.Controllers
         public IActionResult AddOrder([FromBody] CreateOrderViewModel order)
         {
             CreateOrderCommand command = new CreateOrderCommand(_context, _mapper);
+            CreateOrderCommandValidator validator = new CreateOrderCommandValidator();
             command.Model = order;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Sipariş Oluşturma Başarılı !");
         }
@@ -67,7 +70,9 @@ namespace WebAPI.Controllers
         public IActionResult DeleteOrder(int id)
         {
             DeleteOrderCommand command = new DeleteOrderCommand(_context, _mapper);
+            DeleteOrderCommandValidator validator = new DeleteOrderCommandValidator();
             command.OrderId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Silme başarılı");
         }
@@ -77,17 +82,21 @@ namespace WebAPI.Controllers
         public IActionResult UpdateOrder(int id, UpdateOrderViewModel model)
         {
             UpdateOrderCommand command = new UpdateOrderCommand(_context, _mapper);
+            UpdateOrderCommandValidator validator = new UpdateOrderCommandValidator();
             command.Model = model;
             command.OrderId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Güncelleme Başarılı");
         }
 
         [HttpPut("{id}/ChangeStatus")]
-        public IActionResult UpdateGenre(int id)
+        public IActionResult UpdateOrderGenre(int id)
         {
             SetOrderStatusActiveCommand command = new SetOrderStatusActiveCommand(_context, _mapper);
+            SetOrderAtatusActiveCommandValidator validator = new SetOrderAtatusActiveCommandValidator();
             command.OrderId = id;
+            validator.ValidateAndThrow(command);
             command.Handle();
             return Ok("Durum Değişimi Başarılı");
         }
