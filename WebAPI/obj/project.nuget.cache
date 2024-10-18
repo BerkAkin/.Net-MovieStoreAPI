@@ -114,7 +114,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "WebAPI, EntityFramework (>= 5.0.6) öğesine bağımlı ancak EntityFramework 5.0.6 bulunamadı. Yaklaşık bir en iyi eşleşme olan EntityFramework 6.0.0 çözümlendi.",
+      "message": "WebAPI depends on EntityFramework (>= 5.0.6) but EntityFramework 5.0.6 was not found. An approximate best match of EntityFramework 6.0.0 was resolved.",
       "libraryId": "EntityFramework",
       "targetGraphs": [
         "net5.0"
@@ -124,7 +124,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "'Microsoft.AspNetCore.Authentication.JwtBearer' 5.0.6 paketinde önem derecesi orta olan bilinen bir https://github.com/advisories/GHSA-q7cg-43mg-qp69 güvenlik açığı var",
+      "message": "Package 'Microsoft.AspNetCore.Authentication.JwtBearer' 5.0.6 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-q7cg-43mg-qp69",
       "libraryId": "Microsoft.AspNetCore.Authentication.JwtBearer",
       "targetGraphs": [
         "net5.0"
@@ -134,7 +134,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "'EntityFramework 6.0.0' paketi, proje hedef çerçevesi 'net5.0' yerine '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' kullanılarak geri yüklendi. Bu paket projenizle tamamen uyumlu olmayabilir.",
+      "message": "Package 'EntityFramework 6.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
       "libraryId": "EntityFramework",
       "targetGraphs": [
         "net5.0"
