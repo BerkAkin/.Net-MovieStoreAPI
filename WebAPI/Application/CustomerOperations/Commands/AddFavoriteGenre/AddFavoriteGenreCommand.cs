@@ -25,7 +25,7 @@ namespace WebAPI.Application.CustomerOperations.Commands.AddFavoriteGenre
             var customer = _context.Customers.SingleOrDefault(c => c.Id == CustomerId);
             if (customer is null)
             {
-                throw new InvalidOperationException("Müşteri Bulunamadı");
+                throw new InvalidOperationException("Müşteri bulunamadı");
 
             }
             customer.FavoriteGenres = _context.Genres.Where(g => Model.Genres.Contains(g.Id)).ToList();

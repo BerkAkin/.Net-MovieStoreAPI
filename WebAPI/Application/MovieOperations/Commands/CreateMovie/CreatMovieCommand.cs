@@ -27,7 +27,7 @@ namespace WebAPI.Application.MovieOperations.Commands.CreateMovie
 
             if (movie is not null)
             {
-                throw new InvalidOperationException("Eklemeye Çalıştığınız Film Zaten Mevcut. Lütfen Başka Bir Film Başlığı Deneyin");
+                throw new InvalidOperationException("Eklemeye çalıştığınız film zaten mevcut");
             }
             movie = _mapper.Map<Movie>(Model);
 

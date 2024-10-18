@@ -24,7 +24,7 @@ namespace WebAPI.Application.MovieOperations.Commands.UpdateMovie
             var movie = _context.Movies.Include(x => x.Genres).Where(x => x.Id == Id).SingleOrDefault();
             if (movie is null)
             {
-                throw new InvalidOperationException("Güncellenecek kitap bulunamadı");
+                throw new InvalidOperationException("Güncellenecek film bulunamadı");
             }
             else
             {

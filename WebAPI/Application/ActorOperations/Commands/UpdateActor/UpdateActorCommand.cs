@@ -21,7 +21,7 @@ namespace WebAPI.Application.ActorOperations.Commands.UpdateActor
             var actor = _context.Actors.SingleOrDefault(g => g.Id == ActorId);
             if (actor is null)
             {
-                throw new InvalidOperationException("Güncellenecek tür bulunamadı");
+                throw new InvalidOperationException("Güncellenecek oyuncu bulunamadı");
             }
             actor.Name = Model.Name != default ? Model.Name : actor.Name;
             actor.Surname = Model.Surname != default ? Model.Surname : actor.Surname;

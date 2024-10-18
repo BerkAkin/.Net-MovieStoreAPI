@@ -21,7 +21,7 @@ namespace WebAPI.Application.ActorOperations.Commands.DeleteActor
             var actor = _context.Actors.SingleOrDefault(x => x.Id == Id);
             if (actor is null)
             {
-                throw new InvalidOperationException("Silinecek Film Bulunamadı");
+                throw new InvalidOperationException("Silinecek oyuncu bulunamadı");
             }
             else
             {

@@ -21,7 +21,7 @@ namespace WebAPI.Application.MovieOperations.Commands.DeleteMovie
             var movie = _context.Movies.SingleOrDefault(x => x.Id == Id);
             if (movie is null)
             {
-                throw new InvalidOperationException("Silinecek Film Bulunamadı");
+                throw new InvalidOperationException("Silinecek film bulunamadı");
             }
             else
             {
